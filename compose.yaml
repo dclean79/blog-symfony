@@ -4,7 +4,7 @@ services:
     # ----------------------------------------------
     nginx:
         image: nginx:stable-alpine
-        container_name: todo_nginx
+        container_name: blog_symfony_nginx
         ports:
             # Mapowanie portu 8000 hosta na port 80 kontenera
             - "8000:80"
@@ -16,7 +16,7 @@ services:
         depends_on:
             - php
         networks:
-            - todo_network
+            - blog_symfony_network
         restart: unless-stopped
 
     # ----------------------------------------------
@@ -29,7 +29,7 @@ services:
             args:
                 # Wersja PHP do użycia (można zmienić w .env)
                 PHP_VERSION: ${PHP_VERSION:-8.4}
-        container_name: todo_php
+        container_name: blog_symfony_php
         user: "${UID}:${GID}"
         environment:
             # Zmienne środowiskowe Symfony:
@@ -42,7 +42,7 @@ services:
             # 1. Główny wolumen kodu
             - ./:/var/www/symfony:rw
         networks:
-            - todo_network
+            - blog_symfony_network
         restart: unless-stopped
         healthcheck:
             # Sprawdzenie, czy PHP-FPM jest gotowe do obsługi zapytań
@@ -56,7 +56,7 @@ services:
     # ----------------------------------------------
     database:
         image: mysql:${MYSQL_VERSION:-8.0}
-        container_name: todo_mysql
+        container_name: blog_symfony_mysql
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
             MYSQL_DATABASE: ${MYSQL_DATABASE:-blog_symfony}
@@ -66,7 +66,7 @@ services:
             # Trwałe dane bazy danych
             - db_data:/var/lib/mysql
         networks:
-            - todo_network
+            - blog_symfony_network
         ports:
             # Umożliwienie dostępu z hosta (np. do MySQL Workbench)
             - "33061:3306"
@@ -81,5 +81,5 @@ volumes:
     db_data:
 
 networks:
-    todo_network:
+    blog_symfony_network:
         driver: bridge
