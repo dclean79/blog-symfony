@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Post autora{% endblock %}
+{% block title %}Author's post{% endblock %}
 
 {% block body %}
 <div class="container mt-4">
@@ -8,7 +8,7 @@
             <div class="card shadow-sm">
                 <div class="card-header bg-dark text-white">
                     <h5 class="mb-0">
-                        {{ form.vars.value.id ? 'Edytuj post' : 'Nowy post' }}
+                        {{ form.vars.value.id ? 'Edit post' : 'New post' }}
                     </h5>
                 </div>
                 <div class="card-body">
@@ -27,12 +27,12 @@
 
                         <div class="mb-3">
                             {{ form_label(form.contentMarkdown, null, {'label_attr': {'class': 'form-label'}}) }}
-                            {{ form_widget(form.contentMarkdown, {'attr': {'class': 'form-control', 'rows': 24, 'placeholder': 'Wpisz treść artykułu w Markdown...'}}) }}
+                            {{ form_widget(form.contentMarkdown, {'attr': {'class': 'form-control', 'rows': 24, 'placeholder': 'Add text in Markdown...'}}) }}
                             {{ form_errors(form.contentMarkdown) }}
                         </div>
 
                         <button class="btn btn-success">
-                            <i class="bi bi-save me-1"></i> Zapisz
+                            <i class="bi bi-save me-1"></i> Save
                         </button>
                     {{ form_end(form) }}
                 </div>

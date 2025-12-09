@@ -5,13 +5,13 @@
 <div class="container mt-4">
     <h2>{{ post.title }}</h2>
     <p class="text-muted">
-        Autor: {{ post.author.email }} |
-        Data: {{ post.createdAt|date('Y-m-d H:i') }}
+        Author: {{ post.author.email }} |
+        Date: {{ post.createdAt|date('Y-m-d H:i') }}
     </p>
     <hr>
     <div>
-        {{ post.contentMarkdown|raw }}
+        {{ post.contentHtml|raw }}
     </div>
-    <a href="{{ path('post_list') }}" class="btn btn-secondary mt-3">← Powrót do listy</a>
+    <a href="{{ path('post_list') }}" class="btn btn-secondary mt-3">← Back to list</a>
 </div>
 {% endblock %}

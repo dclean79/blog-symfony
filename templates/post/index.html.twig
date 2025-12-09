@@ -3,15 +3,15 @@
 
 {% block body %}
 <div class="container mt-4">
-    <h2 class="mb-3">Opublikowane posty</h2>
+    <h2 class="mb-3">Published posts</h2>
 
     <div class="card shadow-sm">
         <div class="card-body">
             <table class="table table-striped align-middle">
                 <thead class="table-dark">
                     <tr>
-                        <th>Tytuł</th>
-                        <th>Autor</th>
+                        <th>Title</th>
+                        <th>Author</th>
                         <th>Data</th>
                     </tr>
                 </thead>
@@ -28,7 +28,7 @@
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="3" class="text-center">Brak opublikowanych postów</td>
+                            <td colspan="3" class="text-center">No posts published</td>
                         </tr>
                     {% endfor %}
                 </tbody>

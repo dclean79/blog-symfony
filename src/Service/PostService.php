@@ -4,10 +4,14 @@ namespace App\Service;
 use App\Entity\Post;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Service\MarkdownService;
 
 class PostService
 {
-    public function __construct(private EntityManagerInterface $em) {}
+    public function __construct(
+        private EntityManagerInterface $em,
+        private MarkdownService $markdownService
+    ) {}
 
     public function createPost(Post $post, User $author): void
     {
@@ -15,6 +19,7 @@ class PostService
         $post->setCreatedAt(new \DateTimeImmutable());
         $post->setUpdatedAt(new \DateTimeImmutable());
         $post->setIsPublished(false);
+        $post->setContentHtml($this->markdownService->toHtml($post->getContentMarkdown()));
 
         $this->em->persist($post);
         $this->em->flush();
@@ -23,6 +28,9 @@ class PostService
     public function updatePost(Post $post): void
     {
         $post->setUpdatedAt(new \DateTimeImmutable());
+
+        $post->setContentHtml($this->markdownService->toHtml($post->getContentMarkdown()));
+
         $this->em->flush();
     }
 
@@ -34,6 +42,19 @@ class PostService
 
     public function getPublishedPosts(): array
     {
-        return $this->em->getRepository(Post::class)->findBy(['isPublished' => true], ['createdAt' => 'DESC']);
+        return $this->em->getRepository(Post::class)->findPublished();
     }
+
+    public function getLatestPublishedPosts(int $limit = 10): array
+    {
+        return $this->em->getRepository(Post::class)
+            ->createQueryBuilder('p')
+            ->andWhere('p.isPublished = :published')
+            ->setParameter('published', true)
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
 }

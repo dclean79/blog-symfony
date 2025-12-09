@@ -9,23 +9,19 @@
             {% include 'components/_front_menu.html.twig' %}
         {% endif %}
 
-        <!-- Ikony po prawej -->
         <div class="d-flex align-items-center gap-3">
             {% if app.user and ('ROLE_AUTHOR' in app.user.roles or 'ROLE_ADMIN' in app.user.roles) %}
                 {% if currentRoute starts with 'author_' %}
-                    <!-- Jesteś w panelu → pokaż ikonę powrotu do frontu -->
-                    <a href="{{ path('app_home') }}" class="btn btn-sm btn-outline-light" title="Powrót do frontu">
+                    <a href="{{ path('app_home') }}" class="btn btn-sm btn-outline-light" title="Go to webpage">
                         <i class="bi bi-arrow-up-right-square-fill"></i>
                     </a>
                 {% else %}
-                    <!-- Jesteś na froncie → pokaż ikonę wejścia do panelu -->
-                    <a href="{{ path('author_post_list') }}" class="btn btn-sm btn-outline-light" title="Panel autora">
+                    <a href="{{ path('author_post_list') }}" class="btn btn-sm btn-outline-light" title="Go to panel">
                         <i class="bi bi-gear"></i>
                     </a>
                 {% endif %}
             {% endif %}
 
-            <!-- Dropdown ikona użytkownika -->
             <div class="dropdown">
                 <a class="btn btn-sm btn-outline-light dropdown-toggle" href="#" role="button"
                    id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -37,10 +33,10 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                     {% if not app.user %}
-                        <li><a class="dropdown-item" href="{{ path('app_register') }}">Rejestracja</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_login') }}">Logowanie</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_register') }}">Registration</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_login') }}">Log in</a></li>
                     {% else %}
-                        <li><a class="dropdown-item" href="{{ path('app_logout') }}">Wyloguj</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_logout') }}">Log out</a></li>
                     {% endif %}
                 </ul>
             </div>

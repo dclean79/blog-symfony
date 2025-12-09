@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
-{% block title %}Moje posty{% endblock %}
+{% block title %}My Posts{% endblock %}
 
 {% block body %}
 <div class="container mt-4">
-    <h2 class="mb-3">Moje posty</h2>
+    <h2 class="mb-3">My Posts</h2>
 
     <!-- Przycisk dodawania nowego posta z ikoną + tooltipem -->
     <a href="{{ path('author_post_new') }}"
        class="btn btn-success mb-3"
-       data-bs-toggle="tooltip" data-bs-placement="right" title="Dodaj nowy post">
+       data-bs-toggle="tooltip" data-bs-placement="right" title="Add new post">
         <i class="bi bi-file-earmark-plus"></i>
     </a>
 
@@ -17,10 +17,10 @@
             <table class="table table-striped align-middle">
                 <thead class="table-dark">
                     <tr>
-                        <th>Tytuł</th>
+                        <th>Title</th>
                         <th>Slug</th>
-                        <th>Opublikowany</th>
-                        <th>Akcje</th>
+                        <th>Published</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>

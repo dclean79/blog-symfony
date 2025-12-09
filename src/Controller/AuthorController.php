@@ -17,12 +17,12 @@ class AuthorController extends AbstractController
     #[Route('/post/list', name: 'author_post_list')]
     public function list(PostRepository $postRepository): Response
     {
-        // Dostęp tylko dla autora lub admina
+        // Access only for author or admin
         if (!$this->isGranted('ROLE_AUTHOR') && !$this->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }
 
-        // Admin widzi wszystkie posty, autor tylko swoje
+        // Admin sees all posts, author only their own
         $posts = $this->isGranted('ROLE_ADMIN')
             ? $postRepository->findAll()
             : $postRepository->findBy(['author' => $this->getUser()]);
@@ -45,7 +45,7 @@ class AuthorController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $postService->createPost($post, $this->getUser());
-            $this->addFlash('success', 'Post został dodany.');
+            $this->addFlash('success', 'Post has been created.');
             return $this->redirectToRoute('author_post_list');
         }
 
@@ -61,9 +61,9 @@ class AuthorController extends AbstractController
             throw $this->createAccessDeniedException();
         }
 
-        // Autor może edytować tylko swoje posty, admin dowolne
+        // Author can edit only their own posts, admin can edit any
         if ($post->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException('Nie możesz edytować cudzych postów.');
+            throw $this->createAccessDeniedException('You cannot edit someone else’s post.');
         }
 
         $form = $this->createForm(PostFormType::class, $post);
@@ -71,7 +71,7 @@ class AuthorController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $postService->updatePost($post);
-            $this->addFlash('success', 'Post został zaktualizowany.');
+            $this->addFlash('success', 'Post has been updated.');
             return $this->redirectToRoute('author_post_list');
         }
 
@@ -87,16 +87,16 @@ class AuthorController extends AbstractController
             throw $this->createAccessDeniedException();
         }
 
-        // Autor może usuwać tylko swoje posty, admin dowolne
+        // Author can delete only their own posts, admin can delete any
         if ($post->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException('Nie możesz usuwać cudzych postów.');
+            throw $this->createAccessDeniedException('You cannot delete someone else’s post.');
         }
 
         if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
             $postService->deletePost($post);
-            $this->addFlash('success', 'Post został usunięty.');
+            $this->addFlash('success', 'Post has been deleted.');
         } else {
-            $this->addFlash('danger', 'Nieprawidłowy token bezpieczeństwa.');
+            $this->addFlash('danger', 'Invalid CSRF token.');
         }
 
         return $this->redirectToRoute('author_post_list');
@@ -110,18 +110,17 @@ class AuthorController extends AbstractController
         }
 
         if ($post->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException('Nie możesz zmieniać statusu cudzych postów.');
+            throw $this->createAccessDeniedException('You cannot change the publication status of someone else’s post.');
         }
 
         if ($this->isCsrfTokenValid('toggle'.$post->getId(), $request->request->get('_token'))) {
             $post->setIsPublished(!$post->isPublished());
             $postService->updatePost($post);
-            $this->addFlash('success', 'Status publikacji został zmieniony.');
+            $this->addFlash('success', 'Publication status has been changed.');
         } else {
-            $this->addFlash('danger', 'Nieprawidłowy token bezpieczeństwa.');
+            $this->addFlash('danger', 'Invalid CSRF token.');
         }
 
         return $this->redirectToRoute('author_post_list');
     }
-
 }
