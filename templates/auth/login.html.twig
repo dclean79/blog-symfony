@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}Logowanie{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">{{ app.user ? 'Wyloguj się' : 'Zaloguj się'}}</h4>
+            </div>
+            <div class="card-body">
+            {% if not app.user %}
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="inputEmail" class="form-label">Email</label>
+                        <input type="email" name="_username" id="inputEmail" class="form-control" required autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword" class="form-label">Hasło</label>
+                        <input type="password" name="_password" id="inputPassword" class="form-control" required>
+                    </div>
+                    <button class="btn btn-primary w-100" type="submit">Zaloguj</button>
+                </form>
+            {% else %}
+                <div class="mb-3">
+                    <a href="{{ path('app_logout') }}" class="btn btn-danger">Wyloguj</a>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

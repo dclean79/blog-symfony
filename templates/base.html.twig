@@ -20,6 +20,14 @@
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Posts</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Rejestracja</a></li>
+                <li class="nav-item">
+                    {% if app.user %}
+                        <a href="{{ path('app_login') }}" class="nav-link">Wyloguj</a>
+                    {% else %}
+                        <a class="nav-link" href="{{ path('app_login') }}">Logowanie</a>
+                    {% endif %}
+                </li>
             </ul>
         </div>
     </div>
