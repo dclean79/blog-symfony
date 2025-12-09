@@ -1,3 +1,35 @@
 body {
     background-color: lightgray;
 }
+
+/* Animowane wejście (fade-in) */
+.alert.fade.show {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Animowane wyjście (fade-out) */
+.alert.fade.hide {
+  animation: fadeOut 0.6s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-10px); }
+}
+
+#flash-container {
+  position: relative;
+  height: 0; /* nie rezerwuje miejsca */
+}
+
+#flash-container .alert {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}

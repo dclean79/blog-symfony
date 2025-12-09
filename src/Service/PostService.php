@@ -25,4 +25,15 @@ class PostService
         $post->setUpdatedAt(new \DateTimeImmutable());
         $this->em->flush();
     }
+
+    public function deletePost(Post $post): void
+    {
+        $this->em->remove($post);
+        $this->em->flush();
+    }
+
+    public function getPublishedPosts(): array
+    {
+        return $this->em->getRepository(Post::class)->findBy(['isPublished' => true], ['createdAt' => 'DESC']);
+    }
 }

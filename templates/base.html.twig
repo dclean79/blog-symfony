@@ -12,6 +12,34 @@
 {% include 'components/_navbar.html.twig' %}
 
 <main class="container my-4 flex-grow-1">
+    <div id="flash-container">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show mt-3 d-flex align-items-center" role="alert">
+                    {% if label == 'success' %}
+                        <span class="badge rounded-circle bg-success me-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-check-circle-fill text-white"></i>
+                        </span>
+                    {% elseif label == 'danger' %}
+                        <span class="badge rounded-circle bg-danger me-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-exclamation-triangle-fill text-white"></i>
+                        </span>
+                    {% elseif label == 'warning' %}
+                        <span class="badge rounded-circle bg-warning me-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-exclamation-circle-fill text-dark"></i>
+                        </span>
+                    {% elseif label == 'info' %}
+                        <span class="badge rounded-circle bg-info me-2 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-info-circle-fill text-white"></i>
+                        </span>
+                    {% endif %}
+                    <span>{{ message }}</span>
+                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
     {% block body %}{% endblock %}
 </main>
 

@@ -28,7 +28,16 @@
                         <tr>
                             <td>{{ post.title }}</td>
                             <td>{{ post.slug }}</td>
-                            <td>{{ post.isPublished ? 'Tak' : 'Nie' }}</td>
+                            <td>
+                                <form method="post" action="{{ path('author_post_toggle_publish', {id: post.id}) }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('toggle' ~ post.id) }}">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox"
+                                            onchange="this.form.submit()"
+                                            {{ post.isPublished ? 'checked' : '' }}>
+                                    </div>
+                                </form>
+                            </td>
                             <td>
                                 <!-- Edycja -->
                                 <a href="{{ path('author_post_edit', {id: post.id}) }}"
@@ -37,12 +46,14 @@
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
                                 <!-- Usuwanie -->
-                                {# <a href="{{ path('author_post_delete', {id: post.id}) }}"
-                                   class="btn btn-sm btn-danger"
-                                   data-bs-toggle="tooltip" data-bs-placement="top" title="Usuń post"
-                                   onclick="return confirm('Czy na pewno chcesz usunąć ten post?');">
-                                    <i class="bi bi-trash"></i>
-                                </a> #}
+                                <form method="post" action="{{ path('author_post_delete', {id: post.id}) }}" style="display:inline"
+                                      onsubmit="return confirm('Czy na pewno chcesz usunąć ten post?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+                                    <button class="btn btn-sm btn-danger"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Usuń post">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     {% else %}
