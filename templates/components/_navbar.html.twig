@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid d-flex justify-content-between">
+
+        {% set currentRoute = app.request.attributes.get('_route') %}
+
+        {% if currentRoute starts with 'author_' %}
+            {% include 'components/_admin_panel_menu.html.twig' %}
+        {% else %}
+            {% include 'components/_front_menu.html.twig' %}
+        {% endif %}
+
+        <!-- Ikony po prawej -->
+        <div class="d-flex align-items-center gap-3">
+            {% if app.user and ('ROLE_AUTHOR' in app.user.roles or 'ROLE_ADMIN' in app.user.roles) %}
+                {% if currentRoute starts with 'author_' %}
+                    <!-- Jesteś w panelu → pokaż ikonę powrotu do frontu -->
+                    <a href="{{ path('app_home') }}" class="btn btn-sm btn-outline-light" title="Powrót do frontu">
+                        <i class="bi bi-arrow-up-right-square-fill"></i>
+                    </a>
+                {% else %}
+                    <!-- Jesteś na froncie → pokaż ikonę wejścia do panelu -->
+                    <a href="{{ path('author_post_list') }}" class="btn btn-sm btn-outline-light" title="Panel autora">
+                        <i class="bi bi-gear"></i>
+                    </a>
+                {% endif %}
+            {% endif %}
+
+            <!-- Dropdown ikona użytkownika -->
+            <div class="dropdown">
+                <a class="btn btn-sm btn-outline-light dropdown-toggle" href="#" role="button"
+                   id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    {% if app.user %}
+                        <i class="bi bi-person-fill-check"></i>
+                    {% else %}
+                        <i class="bi bi-person"></i>
+                    {% endif %}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                    {% if not app.user %}
+                        <li><a class="dropdown-item" href="{{ path('app_register') }}">Rejestracja</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_login') }}">Logowanie</a></li>
+                    {% else %}
+                        <li><a class="dropdown-item" href="{{ path('app_logout') }}">Wyloguj</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

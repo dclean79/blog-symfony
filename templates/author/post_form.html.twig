@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}Post autora{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        {{ form.vars.value.id ? 'Edytuj post' : 'Nowy post' }}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+                        <div class="mb-3">
+                            {{ form_label(form.title, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.title) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.slug, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.slug, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.slug) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.contentMarkdown, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.contentMarkdown, {'attr': {'class': 'form-control', 'rows': 24, 'placeholder': 'Wpisz treść artykułu w Markdown...'}}) }}
+                            {{ form_errors(form.contentMarkdown) }}
+                        </div>
+
+                        <button class="btn btn-success">
+                            <i class="bi bi-save me-1"></i> Zapisz
+                        </button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

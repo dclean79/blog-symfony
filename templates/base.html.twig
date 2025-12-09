@@ -9,39 +9,13 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ path('app_home') }}">My Blog</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Posts</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Rejestracja</a></li>
-                <li class="nav-item">
-                    {% if app.user %}
-                        <a href="{{ path('app_login') }}" class="nav-link">Wyloguj</a>
-                    {% else %}
-                        <a class="nav-link" href="{{ path('app_login') }}">Logowanie</a>
-                    {% endif %}
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+{% include 'components/_navbar.html.twig' %}
 
 <main class="container my-4 flex-grow-1">
     {% block body %}{% endblock %}
 </main>
 
-<footer class="bg-dark text-light py-3 mt-auto">
-    <div class="container text-center">
-        <small>&copy; {{ "now"|date("Y") }} My Blog – Symfony Demo</small>
-    </div>
-</footer>
+{% include 'components/_footer.html.twig' %}
 
 {{ encore_entry_script_tags('app') }}
 </body>

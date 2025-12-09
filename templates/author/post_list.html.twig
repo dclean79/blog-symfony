@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block title %}Moje posty{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="mb-3">Moje posty</h2>
+
+    <!-- Przycisk dodawania nowego posta z ikoną + tooltipem -->
+    <a href="{{ path('author_post_new') }}"
+       class="btn btn-success mb-3"
+       data-bs-toggle="tooltip" data-bs-placement="right" title="Dodaj nowy post">
+        <i class="bi bi-file-earmark-plus"></i>
+    </a>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-striped align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Tytuł</th>
+                        <th>Slug</th>
+                        <th>Opublikowany</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in posts %}
+                        <tr>
+                            <td>{{ post.title }}</td>
+                            <td>{{ post.slug }}</td>
+                            <td>{{ post.isPublished ? 'Tak' : 'Nie' }}</td>
+                            <td>
+                                <!-- Edycja -->
+                                <a href="{{ path('author_post_edit', {id: post.id}) }}"
+                                   class="btn btn-sm btn-primary me-1"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" title="Edytuj post">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <!-- Usuwanie -->
+                                {# <a href="{{ path('author_post_delete', {id: post.id}) }}"
+                                   class="btn btn-sm btn-danger"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" title="Usuń post"
+                                   onclick="return confirm('Czy na pewno chcesz usunąć ten post?');">
+                                    <i class="bi bi-trash"></i>
+                                </a> #}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">Brak postów</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
