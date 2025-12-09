@@ -1,4 +1,4 @@
-#Symfony Demo Blog Application
+# Symfony Demo Blog Application
 
 ![alt text](public/homepage.png)
 
