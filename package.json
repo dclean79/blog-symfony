@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production"
+  },
+  "devDependencies": {
+    "@hotwired/stimulus-webpack-helpers": "^1.0.1",
+    "@symfony/webpack-encore": "^5.3.1",
+    "bootstrap": "^5.3.8",
+    "sass": "^1.95.0",
+    "sass-loader": "^16.0.6",
+    "webpack-notifier": "^1.15.0"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "core-js": "^3.47.0"
+  }
+}

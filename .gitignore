@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -18,3 +17,32 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
+
+###> dodatkowe zalecane ###
+# Historia shell / systemowe
+/.ash_history
+/.DS_Store
+
+# Composer cache
+/.composer/
+
+# IDE / edytory
+/.idea/
+/.vscode/
+
+# Logi
+*.log
+
+# Locki (opcjonalnie – zależy od polityki zespołu)
+# Jeśli chcesz kontrolować wersje paczek, zostaw composer.lock i package-lock.json w repo.
+# Jeśli nie – odkomentuj poniższe:
+/composer.lock
+/package-lock.json
+/yarn.lock
