@@ -1,7 +1,7 @@
 #Symfony Demo Blog Application
 
-![alt text](homepage.png)
+![alt text](public/homepage.png)
 
-![alt text](my_posts.png)
+![alt text](public/my_posts.png)
 
-![alt text](edit_post.png)
+![alt text](public/edit_post.png)
